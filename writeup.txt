@@ -1,0 +1,21 @@
+Project Title: GitHub Actions – Markdown Linter CI 🚀✨
+
+Objective:
+Automate Markdown formatting checks using GitHub Actions to maintain clean and consistent documentation.
+
+Tools:
+- GitHub Actions
+- markdownlint GitHub Action
+- Mermaid.js (for animated diagrams)
+- Shields.io (for badges)
+- Screen recording tool (for demo GIF)
+
+Highlights:
+- Runs markdownlint automatically on every push of markdown files
+- Live status badge in README
+- Animated Mermaid diagram showing CI workflow
+- Demo GIF showing the entire pipeline in action
+
+Output:
+- Screenshot of successful workflow run attached
+- Demo GIF of CI pipeline execution
