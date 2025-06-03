@@ -1,6 +1,6 @@
 ![Markdown Lint Status](https://github.com/kyk-131/markdown_lint/actions/workflows/markdown-lint.yml/badge.svg)
 
-![Random GIF](https://i.redd.it/i94b83av8vg81.gif)
+![Random GIF](https://www.icegif.com/wp-content/uploads/2022/11/icegif-151.gif)
 
 
 
