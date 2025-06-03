@@ -4,27 +4,26 @@ on:
   push:
 
 jobs:
-  update-readme:
+  gif-update:
     runs-on: ubuntu-latest
-
-    env:
-      GIPHY_API_KEY: ${{ secrets.GIPHY_API_KEY }}
-
     steps:
-      - name: Checkout repo
+      - name: Checkout Repo
         uses: actions/checkout@v3
 
-      - name: Fetch random G-rated GIF ID from Giphy API and update README
+      - name: Pick Random GIF
+        id: gif
         run: |
-          RESPONSE=$(curl -s "https://api.giphy.com/v1/gifs/random?api_key=$GIPHY_API_KEY&rating=g")
-          GIF_ID=$(echo "$RESPONSE" | jq -r '.data.id')
-          GIF_URL="https://media.giphy.com/media/$GIF_ID/giphy.gif"
-          sed -i "s#\!\[Random GIF\](.*)#\!\[Random GIF\]($GIF_URL)#" README.md
+          mapfile -t gifs < gifs.txt
+          RANDOM_GIF=${gifs[$RANDOM % ${#gifs[@]}]}
+          echo "gif_url=$RANDOM_GIF" >> "$GITHUB_OUTPUT"
 
-      - name: Commit and push changes if README updated
+      - name: Replace GIF in README
+        run: |
+          sed -i -E 's|!\[Random GIF\]\(.*\)|![Random GIF]('"${{ steps.gif.outputs.gif_url }}"')|' README.md
+
+      - name: Commit and Push Changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md
-          git diff --quiet && echo "No changes to commit" || git commit -m "Update random GIF [skip ci]"
+          git commit -am "🔄 Updated GIF in README"
           git push
