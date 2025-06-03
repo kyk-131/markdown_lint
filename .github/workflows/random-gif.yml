@@ -1,0 +1,33 @@
+name: Update README with Random GIF
+
+on:
+  push:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    env:
+      GIPHY_API_KEY: ${{ secrets.GIPHY_API_KEY }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Get random GIF URL from Giphy API and update README
+        run: |
+          echo "Fetching random GIF URL from Giphy..."
+          RESPONSE=$(curl -s "https://api.giphy.com/v1/gifs/random?api_key=$GIPHY_API_KEY&rating=pg")
+          URL=$(echo "$RESPONSE" | jq -r '.data.images.original.url')
+          echo "Got URL: $URL"
+
+          # Replace the URL in README.md for the image markdown
+          sed -i "s#\!\[Random GIF\](.*)#\!\[Random GIF\]($URL)#" README.md
+
+      - name: Commit and push changes if README updated
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --quiet && echo "No changes to commit" || git commit -m "Update random GIF [skip ci]"
+          git push
