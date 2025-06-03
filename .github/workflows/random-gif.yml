@@ -14,14 +14,14 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Get random GIF URL from Giphy API and update README
+      - name: Fetch random G-rated GIF URL from Giphy API and update README
         run: |
           echo "Fetching random GIF URL from Giphy..."
-          RESPONSE=$(curl -s "https://api.giphy.com/v1/gifs/random?api_key=$GIPHY_API_KEY&rating=pg")
+          RESPONSE=$(curl -s "https://api.giphy.com/v1/gifs/random?api_key=$GIPHY_API_KEY&rating=g")
           URL=$(echo "$RESPONSE" | jq -r '.data.images.original.url')
           echo "Got URL: $URL"
 
-          # Replace the URL in README.md for the image markdown
+          # Replace the GIF URL in README.md inside the image markdown
           sed -i "s#\!\[Random GIF\](.*)#\!\[Random GIF\]($URL)#" README.md
 
       - name: Commit and push changes if README updated
