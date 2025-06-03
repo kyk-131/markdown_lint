@@ -1,7 +1,7 @@
 ![Markdown Lint Status](https://github.com/kyk-131/markdown_lint/actions/workflows/markdown-lint.yml/badge.svg)
 
-
 ![Random GIF](https://media.giphy.com/media/initial-placeholder/giphy.gif)
+
 
 
 
